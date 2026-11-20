@@ -12,8 +12,12 @@ import {
     <section id="experience" class="section-pad border-t border-[var(--border)] bg-[var(--surface)]/40">
       <div class="page-container">
         <div data-reveal class="reveal max-w-2xl">
-          <p class="text-sm font-semibold uppercase tracking-widest text-emerald-300/90">Experience</p>
-          <h2 class="mt-3 text-3xl font-bold text-[var(--text)] sm:text-4xl">Education & experience</h2>
+          <p class="text-sm font-semibold uppercase tracking-widest text-emerald-300/90">
+            {experience.length > 0 ? 'Experience' : 'Education'}
+          </p>
+          <h2 class="heading-section mt-3 font-bold text-[var(--text)]">
+            {experience.length > 0 ? 'Education & experience' : 'Academic background'}
+          </h2>
         </div>
 
         <div class="mt-10 space-y-12">

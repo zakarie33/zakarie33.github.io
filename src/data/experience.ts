@@ -21,7 +21,24 @@ export type Certification = {
 export const experience: TimelineEntry[] = [];
 
 /** Add verified education entries here */
-export const education: TimelineEntry[] = [];
+export const education: TimelineEntry[] = [
+  {
+    id: 'unity-bba',
+    title: 'Bachelor of Business Administration (BBA)',
+    organization: 'Unity University',
+    startDate: 'Currently enrolled',
+    endDate: '',
+    description: [],
+  },
+  {
+    id: 'frantz-fanon-software-engineering',
+    title: "Bachelor's Degree in Software Engineering",
+    organization: 'Frantz Fanon University',
+    startDate: 'Graduated',
+    endDate: '',
+    description: [],
+  },
+];
 
 /** Add verified certifications here */
 export const certifications: Certification[] = [];
