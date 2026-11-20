@@ -1,0 +1,39 @@
+---
+import { person } from '../data/site';
+import SectionHeader from './SectionHeader.astro';
+
+const highlights = [
+  'Software Engineering & Full-Stack Development',
+  'Academic & Technical Research',
+  'Cybersecurity Analysis',
+  'IoT & Connected Systems',
+  'Robotics Development',
+  'Graphic Design & Video Production',
+];
+---
+
+<section id="about" class="section-pad border-t border-[var(--border)]">
+  <div class="page-container">
+    <SectionHeader eyebrow="About Me" title={person.fullName} description={person.heroSubheadline} />
+
+    <div class="mt-10 grid min-w-0 gap-8 sm:gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+      <div data-reveal class="reveal space-y-5 text-base leading-relaxed text-[var(--muted)]">
+        {person.aboutParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      <div data-reveal class="reveal min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-6">
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-[var(--text)]">Multidisciplinary focus</h3>
+        <ul class="mt-4 grid gap-3">
+          {highlights.map((item) => (
+            <li class="flex items-start gap-2 text-sm text-[var(--muted)]">
+              <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" aria-hidden="true"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

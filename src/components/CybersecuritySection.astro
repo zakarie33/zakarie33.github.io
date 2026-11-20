@@ -1,0 +1,42 @@
+---
+import { hasSecurityPortfolio, securityEntries } from '../data/cybersecurity';
+import SectionHeader from './SectionHeader.astro';
+import PortfolioEmptyState from './PortfolioEmptyState.astro';
+---
+
+<section id="cybersecurity" class="section-pad border-t border-[var(--border)] bg-[var(--surface)]/40">
+  <div class="page-container">
+    <SectionHeader
+      eyebrow="Cybersecurity"
+      title="Defense, analysis & security research"
+      description="Security research, labs, network analysis, and technical write-ups — only verified findings and methodologies."
+    />
+
+    {
+      hasSecurityPortfolio() ? (
+        <ul class="mt-10 grid gap-6 lg:grid-cols-2">
+          {securityEntries.map((entry) => (
+            <li data-reveal class="reveal rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
+              <p class="text-xs font-semibold uppercase tracking-wide text-emerald-300/90">{entry.type}</p>
+              <h3 class="mt-1 text-lg font-semibold text-[var(--text)]">{entry.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-[var(--muted)]">{entry.summary}</p>
+              {entry.tools.length > 0 && (
+                <ul class="mt-4 flex flex-wrap gap-2">
+                  {entry.tools.map((tool) => (
+                    <li class="rounded-md border border-[var(--border)] px-2 py-0.5 text-xs text-[var(--muted)]">{tool}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <PortfolioEmptyState
+          title="Cybersecurity showcase"
+          message="Document real security research, defensive projects, lab work, and analysis here. Do not add fabricated CVEs, client audits, or certification claims."
+          dataHint="src/data/cybersecurity.ts"
+        />
+      )
+    }
+  </div>
+</section>

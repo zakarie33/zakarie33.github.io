@@ -1,0 +1,51 @@
+---
+import { hasResearch, researchEntries } from '../data/research';
+import SectionHeader from './SectionHeader.astro';
+import PortfolioEmptyState from './PortfolioEmptyState.astro';
+---
+
+<section id="research" class="section-pad border-t border-[var(--border)] bg-[var(--surface)]/40">
+  <div class="page-container">
+    <SectionHeader
+      eyebrow="Research & Publications"
+      title="Academic and technical inquiry"
+      description="Research projects, articles, working papers, and reports — structured for scholarly presentation without invented publications."
+    />
+
+    {
+      hasResearch() ? (
+        <ul class="mt-10 grid gap-5">
+          {researchEntries.map((entry) => (
+            <li data-reveal class="reveal rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-cyan-300/90">{entry.category}</p>
+                  <h3 class="mt-1 text-lg font-semibold text-[var(--text)]">{entry.title}</h3>
+                  <p class="mt-2 text-sm text-[var(--muted)]">{entry.field}</p>
+                </div>
+                {entry.status && (
+                  <span class="rounded-full border border-[var(--border)] px-2.5 py-0.5 text-xs text-[var(--muted)]">
+                    {entry.status}
+                  </span>
+                )}
+              </div>
+              <p class="mt-4 text-sm leading-relaxed text-[var(--muted)]">{entry.abstract}</p>
+              <a
+                href={`${import.meta.env.BASE_URL}research/${entry.slug}`}
+                class="mt-4 inline-flex text-sm font-semibold text-emerald-300 hover:text-emerald-200"
+              >
+                Read details
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <PortfolioEmptyState
+          title="Publications coming soon"
+          message="This section is ready for verified research projects, published articles, working papers, technical reports, and ongoing studies. Empty fields remain hidden on detail pages."
+          dataHint="src/data/research.ts"
+        />
+      )
+    }
+  </div>
+</section>

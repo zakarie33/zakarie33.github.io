@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Expertise from '../components/Expertise.astro';
+import Projects from '../components/Projects.astro';
+import ResearchSection from '../components/ResearchSection.astro';
+import IoTRoboticsSection from '../components/IoTRoboticsSection.astro';
+import CybersecuritySection from '../components/CybersecuritySection.astro';
+import CreativeSection from '../components/CreativeSection.astro';
+import Achievements from '../components/Achievements.astro';
+import Experience from '../components/Experience.astro';
+import GithubSection from '../components/GithubSection.astro';
+import Contact from '../components/Contact.astro';
+import { getPageTitle, seo } from '../data/site';
+---
+
+<BaseLayout title={getPageTitle()} description={seo.homeDescription} path="/">
+  <Hero />
+  <About />
+  <Expertise />
+  <Projects />
+  <ResearchSection />
+  <IoTRoboticsSection />
+  <CybersecuritySection />
+  <CreativeSection />
+  <Achievements />
+  <Experience />
+  <GithubSection />
+  <Contact />
+</BaseLayout>

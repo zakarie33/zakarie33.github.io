@@ -1,0 +1,20 @@
+---
+import ProjectShowcase from './ProjectShowcase';
+import { projects } from '../data/projects';
+---
+
+<section id="projects" class="section-pad border-t border-[var(--border)]">
+  <div class="page-container">
+    <div data-reveal class="reveal max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-widest text-emerald-300/90">Featured Projects</p>
+      <h2 class="heading-section mt-3 font-bold text-[var(--text)]">Selected work & explorations</h2>
+      <p class="mt-4 text-[var(--muted)]">
+        Case studies for products spanning marketplaces, sports, education, healthcare concepts, and finance.
+      </p>
+    </div>
+
+    <div data-reveal class="reveal mt-10">
+      <ProjectShowcase client:visible projects={projects} baseUrl={import.meta.env.BASE_URL} />
+    </div>
+  </div>
+</section>

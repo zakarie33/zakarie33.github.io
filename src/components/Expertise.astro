@@ -1,0 +1,33 @@
+---
+import { skillCategories } from '../data/skills';
+import SectionHeader from './SectionHeader.astro';
+---
+
+<section id="expertise" class="section-pad border-t border-[var(--border)] bg-[var(--surface)]/40">
+  <div class="page-container">
+    <SectionHeader
+      eyebrow="Expertise"
+      title="Skills across disciplines"
+      description="Software, security, hardware, research, and creative technologies — editable in src/data/skills.ts."
+    />
+
+    <ul class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 2xl:grid-cols-4">
+      {skillCategories.map((category, index) => (
+        <li
+          data-reveal
+          class="reveal card-motion min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-6 hover:border-emerald-400/25 hover:shadow-[0_16px_40px_-24px_rgba(16,185,129,0.45)]"
+          style={`transition-delay: ${Math.min(index * 30, 180)}ms`}
+        >
+          <h3 class="text-base font-semibold text-[var(--text)]">{category.title}</h3>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {category.skills.map((skill) => (
+              <li class="rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 text-xs font-medium text-[var(--muted)]">
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+---
+import { achievements, hasAchievements } from '../data/achievements';
+import SectionHeader from './SectionHeader.astro';
+import { withBase } from '../utils/assets';
+import { isConfigured } from '../data/site';
+---
+
+{
+  hasAchievements() ? (
+    <section id="achievements" class="section-pad border-t border-[var(--border)]">
+      <div class="page-container">
+        <SectionHeader
+          eyebrow="Achievements"
+          title="Recognition & milestones"
+          description="Verified awards and recognitions — edit src/data/achievements.ts to add certificates, dates, and project details."
+        />
+
+        <ul class="mt-10 grid gap-6 lg:grid-cols-2">
+          {achievements.map((item) => (
+            <li data-reveal class="reveal">
+              <article class="card-motion relative overflow-hidden rounded-2xl border border-emerald-400/25 bg-gradient-to-br from-emerald-500/10 via-[var(--surface)] to-[var(--surface)] p-6 sm:p-8">
+                <span class="inline-flex rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-200">
+                  {item.placement}
+                </span>
+                <h3 class="mt-4 text-xl font-semibold text-[var(--text)]">{item.title}</h3>
+                <p class="mt-2 text-sm font-medium text-cyan-300/90">{item.event}</p>
+                <p class="mt-4 text-sm leading-relaxed text-[var(--muted)]">{item.description}</p>
+                <dl class="mt-5 space-y-2 text-sm text-[var(--muted)]">
+                  {isConfigured(item.date) && (
+                    <div>
+                      <dt class="inline font-medium text-[var(--text)]">Date: </dt>
+                      <dd class="inline">{item.date}</dd>
+                    </div>
+                  )}
+                  {isConfigured(item.winningProject) && (
+                    <div>
+                      <dt class="inline font-medium text-[var(--text)]">Project: </dt>
+                      <dd class="inline">{item.winningProject}</dd>
+                    </div>
+                  )}
+                </dl>
+                <div class="mt-5 flex flex-wrap gap-3">
+                  {isConfigured(item.certificatePath) && (
+                    <a
+                      href={withBase(item.certificatePath)}
+                      class="text-sm font-medium text-emerald-300 hover:text-emerald-200"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View certificate
+                    </a>
+                  )}
+                  {isConfigured(item.supportingUrl) && (
+                    <a
+                      href={item.supportingUrl}
+                      class="text-sm font-medium text-emerald-300 hover:text-emerald-200"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Supporting link
+                    </a>
+                  )}
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ) : null
+}

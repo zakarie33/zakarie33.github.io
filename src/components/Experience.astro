@@ -1,0 +1,111 @@
+---
+import {
+  experience,
+  education,
+  certifications,
+  hasAnyTimelineContent,
+} from '../data/experience';
+---
+
+{
+  hasAnyTimelineContent() ? (
+    <section id="experience" class="section-pad border-t border-[var(--border)] bg-[var(--surface)]/40">
+      <div class="page-container">
+        <div data-reveal class="reveal max-w-2xl">
+          <p class="text-sm font-semibold uppercase tracking-widest text-emerald-300/90">Experience</p>
+          <h2 class="mt-3 text-3xl font-bold text-[var(--text)] sm:text-4xl">Education & experience</h2>
+        </div>
+
+        <div class="mt-10 space-y-12">
+          {experience.length > 0 && (
+            <div data-reveal class="reveal">
+              <h3 class="mb-6 text-lg font-semibold text-[var(--text)]">Professional Experience</h3>
+              <ol class="relative space-y-8 border-l border-[var(--border)] pl-6">
+                {experience.map((item) => (
+                  <li class="relative">
+                    <span
+                      class="absolute -left-[calc(0.375rem+1px)] top-1.5 h-3 w-3 rounded-full border border-emerald-400 bg-[var(--surface)]"
+                      aria-hidden="true"
+                    />
+                    <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
+                      <div class="flex flex-wrap items-baseline justify-between gap-2">
+                        <h4 class="font-semibold text-[var(--text)]">{item.title}</h4>
+                        <p class="text-xs text-[var(--muted)]">
+                          {item.startDate}
+                          {item.endDate ? ` — ${item.endDate}` : ''}
+                        </p>
+                      </div>
+                      <p class="mt-1 text-sm text-emerald-300/90">{item.organization}</p>
+                      {item.location && <p class="text-xs text-[var(--muted)]">{item.location}</p>}
+                      {item.description.length > 0 && (
+                        <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-[var(--muted)]">
+                          {item.description.map((line) => (
+                            <li>{line}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {education.length > 0 && (
+            <div data-reveal class="reveal">
+              <h3 class="mb-6 text-lg font-semibold text-[var(--text)]">Education</h3>
+              <ol class="relative space-y-8 border-l border-[var(--border)] pl-6">
+                {education.map((item) => (
+                  <li class="relative">
+                    <span
+                      class="absolute -left-[calc(0.375rem+1px)] top-1.5 h-3 w-3 rounded-full border border-cyan-400 bg-[var(--surface)]"
+                      aria-hidden="true"
+                    />
+                    <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
+                      <h4 class="font-semibold text-[var(--text)]">{item.title}</h4>
+                      <p class="mt-1 text-sm text-emerald-300/90">{item.organization}</p>
+                      <p class="text-xs text-[var(--muted)]">
+                        {item.startDate}
+                        {item.endDate ? ` — ${item.endDate}` : ''}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {certifications.length > 0 && (
+            <div data-reveal class="reveal">
+              <h3 class="mb-6 text-lg font-semibold text-[var(--text)]">Certifications</h3>
+              <ul class="grid gap-4 sm:grid-cols-2">
+                {certifications.map((cert) => (
+                  <li class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
+                    <h4 class="font-semibold text-[var(--text)]">{cert.name}</h4>
+                    <p class="text-sm text-[var(--muted)]">{cert.issuer}</p>
+                    <p class="mt-1 text-xs text-[var(--muted)]">{cert.date}</p>
+                    {cert.credentialUrl && (
+                      <a
+                        href={cert.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="mt-3 inline-flex text-sm font-medium text-emerald-300 hover:text-emerald-200"
+                      >
+                        View credential
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section id="experience" class="sr-only" aria-hidden="true">
+      <h2>Experience</h2>
+      <p>Add entries in src/data/experience.ts to display this section.</p>
+    </section>
+  )
+}

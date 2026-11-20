@@ -1,0 +1,91 @@
+/* Responsive layout & typography helpers */
+
+@layer base {
+  html {
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: clip;
+    min-width: 320px;
+  }
+
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer utilities {
+  .page-container {
+    @apply mx-auto w-full max-w-6xl px-3 sm:px-6 lg:px-8;
+  }
+
+  .section-pad {
+    @apply px-3 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-8 lg:py-24;
+  }
+
+  .heading-section {
+    font-size: clamp(1.625rem, 4.5vw + 0.5rem, 2.25rem);
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  .heading-page {
+    font-size: clamp(1.75rem, 4vw + 0.75rem, 2.75rem);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  .heading-hero {
+    font-size: clamp(1.75rem, 5vw + 0.75rem, 3rem);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  .prose-readable {
+    font-size: clamp(0.9375rem, 1.5vw + 0.5rem, 1.125rem);
+    line-height: 1.65;
+  }
+
+  .touch-target {
+    @apply min-h-11 min-w-11;
+  }
+
+  .stack-to-row {
+    @apply flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap;
+  }
+
+  .safe-pad {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+  }
+}
+
+/* Lighter motion on small screens for performance */
+@media (max-width: 639px) {
+  .reveal:not(.is-visible) {
+    filter: blur(3px);
+    transform: translateY(16px);
+  }
+
+  .motion-enabled .section-flow:not(.is-visible) {
+    transform: translateY(12px);
+  }
+
+  .float-portrait {
+    animation: none;
+  }
+}
+
+/* Hover lift only on devices that support hover */
+@media (hover: none) {
+  .btn-motion:hover,
+  .card-motion:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

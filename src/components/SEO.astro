@@ -1,0 +1,55 @@
+---
+import { person, seo, getCanonicalSiteUrl, isConfigured } from '../data/site';
+import { absoluteUrl } from '../utils/urls';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  path = '/',
+  image = seo.defaultOgImage,
+  type = 'website',
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const canonical = absoluteUrl(path);
+const ogImage = image.startsWith('http') ? image : absoluteUrl(image);
+const siteUrl = getCanonicalSiteUrl();
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+{canonical && <link rel="canonical" href={canonical} />}
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+{isConfigured(seo.googleSiteVerification) && (
+  <meta name="google-site-verification" content={seo.googleSiteVerification} />
+)}
+
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{canonical && <meta property="og:url" content={canonical} />}
+{ogImage && <meta property="og:image" content={ogImage} />}
+{siteUrl && <meta property="og:site_name" content={person.fullName} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
+{isConfigured(seo.twitterHandle) && (
+  <meta name="twitter:site" content={seo.twitterHandle} />
+)}
+
+{jsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+)}

@@ -1,0 +1,30 @@
+---
+import { creativeWorks, hasCreativePortfolio } from '../data/creative';
+import SectionHeader from './SectionHeader.astro';
+import PortfolioEmptyState from './PortfolioEmptyState.astro';
+import CreativeGallery from './CreativeGallery';
+---
+
+<section id="creative" class="section-pad border-t border-[var(--border)]">
+  <div class="page-container">
+    <SectionHeader
+      eyebrow="Creative Portfolio"
+      title="Design & digital media"
+      description="Graphic design and video editing work with filters, grid layout, and fullscreen preview — add real assets under public/images/creative/."
+    />
+
+    {
+      hasCreativePortfolio() ? (
+        <div data-reveal class="reveal mt-10">
+          <CreativeGallery client:visible works={creativeWorks} baseUrl={import.meta.env.BASE_URL} />
+        </div>
+      ) : (
+        <PortfolioEmptyState
+          title="Creative gallery ready"
+          message="Upload branding, posters, social media designs, showreels, and motion graphics. Each item supports thumbnails, full images, or embedded video URLs."
+          dataHint="src/data/creative.ts"
+        />
+      )
+    }
+  </div>
+</section>

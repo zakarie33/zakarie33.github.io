@@ -1,0 +1,92 @@
+---
+import { person, isConfigured } from '../data/site';
+import { withBase } from '../utils/assets';
+
+const showResume = isConfigured(person.resumePath);
+---
+
+<section id="home" class="hero-glow section-pad pt-20 sm:pt-24 md:pt-28 lg:pt-32">
+  <div class="page-container grid items-center gap-8 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+    <div data-reveal class="reveal order-2 lg:order-1" data-reveal-delay="0">
+      <p class="text-xs font-semibold tracking-tight text-[var(--text)] sm:text-sm">{person.professionalTitle}</p>
+      <h1 class="heading-hero mt-3 max-w-2xl font-bold tracking-tight text-[var(--text)] sm:mt-4">
+        <span class="text-gradient">{person.heroHeadline}</span>
+      </h1>
+      <p class="mt-3 text-sm font-medium text-cyan-300/90 text-balance sm:mt-4 sm:text-base md:text-lg">
+        {person.heroSubheadline}
+      </p>
+      <p class="prose-readable mt-4 max-w-xl text-[var(--muted)] sm:mt-6">
+        {person.heroDescription}
+      </p>
+      <div class="stack-to-row mt-6 sm:mt-8">
+        <a
+          href="#projects"
+          class="btn-motion touch-target inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-400 sm:w-auto"
+        >
+          {person.heroPrimaryCta}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a
+          href="#contact"
+          class="btn-motion touch-target inline-flex items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text)] hover:border-emerald-400/40 sm:w-auto"
+        >
+          {person.heroSecondaryCta}
+        </a>
+        <a
+          href={person.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-motion touch-target inline-flex items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text)] hover:border-emerald-400/40 sm:w-auto"
+        >
+          {person.heroGithubCta}
+        </a>
+        {
+          showResume && (
+            <a
+              href={withBase(person.resumePath)}
+              class="touch-target inline-flex items-center justify-center rounded-xl border border-emerald-400/35 bg-emerald-500/10 px-5 py-3 text-sm font-semibold text-emerald-200 hover:bg-emerald-500/20 sm:w-auto"
+              download
+            >
+              Download Resume
+            </a>
+          )
+        }
+      </div>
+      <ul class="mt-8 flex flex-wrap gap-2 sm:mt-10">
+        {person.expertiseTags.map((item) => (
+          <li class="max-w-full rounded-full border border-[var(--border)] bg-[var(--surface)]/80 px-3 py-1 text-xs text-[var(--muted)]">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div
+      data-reveal
+      data-reveal-variant="right"
+      class="reveal reveal-right order-1 flex justify-center lg:order-2 lg:justify-end"
+      data-reveal-delay="120"
+    >
+      <div class="relative w-full max-w-[16rem] sm:max-w-xs md:max-w-sm">
+        <div
+          class="absolute inset-x-0 bottom-0 top-[18%] rounded-[2rem] border border-[var(--border)] bg-gradient-to-b from-emerald-500/20 via-teal-500/10 to-cyan-500/5 sm:rounded-[2.5rem]"
+          aria-hidden="true"
+        ></div>
+        <div class="absolute left-1/2 top-[10%] h-48 w-48 -translate-x-1/2 rounded-full bg-emerald-500/25 blur-3xl sm:h-64 sm:w-64" aria-hidden="true"></div>
+        <img
+          src={withBase(person.profileImage)}
+          width="412"
+          height="842"
+          alt={person.profileImageAlt}
+          sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 320px"
+          class="float-portrait relative mx-auto h-auto w-[72%] max-h-[min(58vh,520px)] object-contain object-bottom drop-shadow-[0_25px_35px_rgba(0,0,0,0.45)] sm:w-[78%] sm:max-h-none"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="glass absolute -bottom-3 left-3 right-3 rounded-2xl px-3 py-2.5 text-center text-xs text-[var(--muted)] sm:-bottom-4 sm:left-6 sm:right-6 sm:px-4 sm:py-3 sm:text-sm">
+          {person.location}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import MotionPlatform from '../components/MotionPlatform';
+import AnimatedBackdrop from '../components/AnimatedBackdrop.astro';
+import { person, getCanonicalSiteUrl } from '../data/site';
+import { absoluteUrl } from '../utils/urls';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, path = '/', image, jsonLd } = Astro.props;
+
+const siteRoot = getCanonicalSiteUrl();
+
+const sameAs = [person.githubUrl, person.linkedinUrl].filter((url) =>
+  url.startsWith('http'),
+);
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.fullName,
+  jobTitle: 'Software Engineer; Researcher; Technology Innovator',
+  ...(siteRoot ? { url: siteRoot } : {}),
+  ...(sameAs.length ? { sameAs } : {}),
+  ...(absoluteUrl(person.profileImage)
+    ? { image: absoluteUrl(person.profileImage) }
+    : {}),
+};
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: `${person.fullName} — Portfolio`,
+  description,
+  ...(siteRoot ? { url: siteRoot } : {}),
+  author: {
+    '@type': 'Person',
+    name: person.fullName,
+  },
+};
+
+const structuredData = jsonLd ?? [personJsonLd, websiteJsonLd];
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="author" content={person.fullName} />
+    <meta
+      name="keywords"
+      content="Sakariye Siyaad Hussein, Sakariye Siyaad, Software Engineer, Researcher, Cybersecurity, IoT, Robotics, zakarie33, Somaliland"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <SEO title={title} description={description} path={path} image={image} jsonLd={structuredData} />
+  </head>
+  <body class="min-h-screen flex flex-col" style={`--astro-base: ${import.meta.env.BASE_URL}`}>
+    <AnimatedBackdrop />
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-slate-950"
+    >
+      Skip to content
+    </a>
+    <Navbar />
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <MotionPlatform client:load />
+  </body>
+</html>
