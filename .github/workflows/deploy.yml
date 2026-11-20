@@ -25,10 +25,10 @@ jobs:
         uses: withastro/action@v6
         with:
           path: .
-          env:
-            SITE_URL: https://zakarie33.github.io
-            BASE_PATH: /
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          SITE_URL: https://zakarie33.github.io
+          BASE_PATH: /
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     needs: build
